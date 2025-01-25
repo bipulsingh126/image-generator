@@ -1,15 +1,15 @@
-import React from "react";
-import { stepsData } from "../assets/assets";
+import React from 'react'
+import { stepsData } from '../assets/assets'
 
 const Step = () => {
   return (
     <div className=" flex flex-col justify-center my-32 items-center">
       <h1 className=" text-3xl font-semibold text-center mt-10 sm:text-4xl ">
-        {" "}
-        How it works{" "}
+        {' '}
+        How it works{' '}
       </h1>
       <p className=" text-gray-600 mt-5 text-center max-w-xl mx-auto mb-8 ">
-        {" "}
+        {' '}
         Transform your text into stunning Images in seconds - just type, and
         watch the magic happen
       </p>
@@ -28,7 +28,7 @@ const Step = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Step;
+export default Step

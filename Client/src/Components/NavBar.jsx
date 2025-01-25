@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { assets } from "../assets/assets";
-import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../Context/AppContext";
+import React, { useContext } from 'react'
+import { assets } from '../assets/assets'
+import { Link, useNavigate } from 'react-router-dom'
+import { AppContext } from '../Context/AppContext'
 
 const NavBar = () => {
-const {user} = useContext(AppContext);
+  const { user } = useContext(AppContext)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <div className="flex justify-between items-center py-4 ">
       <Link to="/">
@@ -14,12 +14,15 @@ const {user} = useContext(AppContext);
           src={assets.logo}
           alt=" Imagify "
           className="w-28 sm:w-32 lg:w-40 "
-        />{" "}
+        />{' '}
       </Link>
       <div>
         {user ? (
           <div className="flex item-center gap-2 sm:gap-3 ">
-            <button onClick={()=>navigate('/buy-credit') } className=" flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700   ">
+            <button
+              onClick={() => navigate('/buy-credit')}
+              className=" flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700   "
+            >
               <img src={assets.credit_star} className="w-5" alt=" credit " />
               <p className=" text-xs sm:text-sm  font-medium text-gray-600 ">
                 Credits left : 50
@@ -42,7 +45,7 @@ const {user} = useContext(AppContext);
         ) : (
           <div className="flex gap-4 sm:gap-5 ">
             <p
-              onClick={() => navigate("/buy-credit")}
+              onClick={() => navigate('/buy-credit')}
               className="cursor-pointer "
             >
               Pricing
@@ -54,7 +57,7 @@ const {user} = useContext(AppContext);
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
