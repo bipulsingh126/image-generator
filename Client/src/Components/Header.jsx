@@ -1,13 +1,25 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from 'react';
+import { assets } from '../assets/assets';
+import { motion } from 'motion/react';
 
 const Header = () => {
   return (
-    <div className=" flex flex-col justify-center items-center text-center my-20  ">
-      <div className=" text-stone-500 inline-flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500  ">
+    <motion.div
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className=" flex flex-col justify-center items-center text-center my-20  "
+    >
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+        className=" text-stone-500 inline-flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500  "
+      >
         <p>Best text to image generator</p>
         <img src={assets.star_icon} alt="" />
-      </div>
+      </motion.div>
       <h1 className=" text-4xl max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center ">
         Turn text to <span className="text-[#6583d5] ">image</span>, in seconds{' '}
       </h1>
@@ -39,12 +51,12 @@ const Header = () => {
                 }
                 alt=""
               />
-            )
+            );
           })}
       </div>
       <p className=" mt-2 text-neutral-600 "> Generate images with Imagify</p>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Header
+export default Header;
