@@ -1,9 +1,16 @@
-import React from 'react'
-import { assets, testimonialsData } from '../assets/assets'
+import React from 'react';
+import { assets, testimonialsData } from '../assets/assets';
+import { motion } from 'motion/react';
 
 const Testmoinals = () => {
   return (
-    <div className=" flex flex-col justify-center items-center  my-20 py-12  ">
+    <motion.div
+    initial={{ opacity: 0.2, y: 100 }}
+    transition={{ duration: 1 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+      className=" flex flex-col justify-center items-center  my-20 py-12  "
+    >
       <h1 className=" text-3xl sm:text-4xl font-semibold mb-2  ">
         Customers Testimonials
       </h1>
@@ -34,8 +41,8 @@ const Testmoinals = () => {
           </div>
         ))}
       </div>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Testmoinals
+export default Testmoinals;

@@ -1,9 +1,16 @@
-import React from 'react'
-import { stepsData } from '../assets/assets'
+import React from 'react';
+import { stepsData } from '../assets/assets';
+import { motion } from 'motion/react';
 
 const Step = () => {
   return (
-    <div className=" flex flex-col justify-center my-32 items-center">
+    <motion.div
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className=" flex flex-col justify-center my-32 items-center"
+    >
       <h1 className=" text-3xl font-semibold text-center mt-10 sm:text-4xl ">
         {' '}
         How it works{' '}
@@ -27,8 +34,8 @@ const Step = () => {
           </div>
         ))}
       </div>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Step
+export default Step;
