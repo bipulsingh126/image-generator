@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
 import { motion } from 'motion/react';
+import { AppContext } from '../Context/AppContext';
 
 const Result = () => {
   const [image, setImage] = useState(assets.sample_img_1);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
+  const { generateImage } = useContext(AppContext);
 
   const onSubmithandler = async (e) => {
     e.preventDefault();
+    try {
+      setLoading(true);
+      if (input) {
+        const image = await generateImage(input);
+        if (image) {
+          setIsImageLoading(true);
+          setImage(image);
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (

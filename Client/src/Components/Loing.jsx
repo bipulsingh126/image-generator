@@ -2,10 +2,56 @@ import React, { useContext, useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 import { AppContext } from '../Context/AppContext';
 import { motion } from 'motion/react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Loing = () => {
   const [state, setState] = useState('Login');
-  const { setShowLogin } = useContext(AppContext);
+  const { setShowLogin, backendURI, setToken, setUser,  } =
+    useContext(AppContext);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmithandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (state === 'Login') {
+        const { data } = await axios.post(backendURI + '/api/user/login', {
+          email,
+          password,
+        });
+        if (data.success) {
+          setToken(data.token);
+          setUser(data.user);
+          localStorage.setItem('token', data.token);
+          setShowLogin(false);
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendURI + '/api/user/register', {
+          name,
+          email,
+          password,
+        });
+        if (data.success) {
+          setToken(data.token);
+          setUser(data.user);
+          localStorage.setItem('token', data.token);
+          setShowLogin(false);
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -17,6 +63,7 @@ const Loing = () => {
   return (
     <div className="fixed inset-0 z-10 backdrop-blur-sm bg-black/50 flex justify-center items-center ">
       <motion.form
+        onSubmit={onSubmithandler}
         initial={{ opacity: 0.2, y: 100 }}
         transition={{ duration: 1 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -37,6 +84,8 @@ const Loing = () => {
               type="text"
               placeholder="Full Name"
               required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
         )}
@@ -47,6 +96,8 @@ const Loing = () => {
             type="Email"
             placeholder="Email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className=" border px-6 py-2 flex items-center gap-2 rounded-full mt-5 ">
@@ -56,6 +107,8 @@ const Loing = () => {
             type="Password"
             placeholder="Password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <p className=" text-sm text-blue-600 my-4 cursor-pointer ">
