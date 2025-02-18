@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { assets, plans } from '../assets/assets';
-import { AppContext } from '../Context/AppContext';
+import { AppContext } from '../Context/AppContext.jsx';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -21,8 +21,21 @@ const BuyCredit = () => {
       description: 'Credits payment',
       order_id: order.id,
       receipt: order.receipt,
-      handler: async (response) => {  
-        console.log(response);
+      handler: async (response) => {
+        try {
+          const { data } = await axios.post(
+            backendURI + '/api/user/payment-success',
+            response,
+            { headers: { token } },
+          );
+          if (data.success) {
+            loadCreditsData();
+            navigate('/');
+            toast.success('Payment Success');
+          }
+        } catch (error) {
+          toast.error(error.message);
+        }
       },
     };
     const rzpy = new window.Razorpay(options);
@@ -35,7 +48,7 @@ const BuyCredit = () => {
         setShowLogin(true);
       }
       const { data } = await axios.post(
-        backendURI + '/api/user/payment',
+        backendURI + '/api/user/credit-payment',
         { planId },
         { headers: { token } },
       );
